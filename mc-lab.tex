@@ -1,5 +1,5 @@
 \documentclass[11pt,a4paper]{article}
-\usepackage{enumitem,amssymb,graphicx,epstopdf,hyperref,authblk}
+\usepackage{enumitem,amssymb,graphicx,epstopdf,hyperref,authblk,minted}
 \usepackage[T1]{fontenc}
 \usepackage[utf8]{inputenc}
 
@@ -23,17 +23,16 @@ Getting started with microcontroller can be tedious process, as the require a nu
 \label{sub:arduino}
 
 \begin{quote}
-\emph{``Arduino is a tool for making computers that can sense and control more of the physical world than your desktop computer. It's an open-source physical computing platform based on a simple microcontroller board, and a development environment for writing software for the board.''} -- \url{http://arduino.cc}
+\emph{``Arduino is a tool for making computers that can sense and control more of the physical world than your desktop computer. It's an open-source physical computing platform based on a simple microcontroller board, and a development environment for writing software for the board.''} -- Arduino Website\cite{arduino-guide}
 \end{quote}
 
-This lab will be using the Arduino Leonardo Microcontroller\cite{leonardo}.  It is similar to the Arduino Uno\cite{uno}, with the major difference being that it uses SMT\cite{smt} instead of the older "thru-hole"\cite{th} technology.
+This lab will be using the Arduino Leonardo Microcontroller\cite{leonardo}.  It is similar to the Arduino Uno\cite{uno}, with the major difference being that it uses SMT\cite{smt} instead of the older ``thru-hole''\cite{th} technology.
 
 Arduino drastically lowers the difficulty of getting started with a microcontroller, as it provides all the necessary tools to start making the microcontroller do interesting things without nearly all the setup of just a plain microcontroller.
 
 Arduino is based around an 8-bit Atmel AVR microcontroller, and other good things like a boot loader for uploading programs, a USB controller for an easy source of power and connectivity to your computer as well as a barrel jack for non usb power sources.
 
 It is programmed using a language that is based off of C++ and uses a fork of the Processing IDE.  Many arduino projects you will find will rely on programs running on your computer using Processing.\cite{processing}
-
 
 % subsection arduino (end)
 
@@ -47,49 +46,67 @@ It is programmed using a language that is based off of C++ and uses a fork of th
 
 This lab is based off of the Arduino 1.0.3 software which can be downloaded for free from\cite{arduino-dl}.  Unlike other embedded systems development environments, the Arduino software is quick to download and set up, and has zero cost associated with the software which makes it a convenient to work with when your primary goal is to come up with a working prototype.
 
-\newcommand\litem[1]{\item{\bfseries #1\\}}
-\begin{enumerate}
+\subsection{Find a Computer} % (fold)
+\label{sub:find_a_computer}
+You are free to use your own laptop or one of the classroom computers.
 
-\litem{Find a Computer} You are free to use your own laptop or one of the classroom computers.
+% subsection find_a_computer (end)
 
-\litem{Download and Launch the Arduino Software} Visit \url{http://arduino.cc/en/Main/Software} and downloaded the latest Arduino software\cite{arduino-dl}.  If you have decided to use your own Arduino, make sure you find the necessary USB drivers if you have a board that is older than the Uno.
+\subsection{Download and Launch the Arduino Software} % (fold)
+\label{sub:download_and_launch_the_arduino_software}
+Visit \url{http://arduino.cc/en/Main/Software} and downloaded the latest Arduino software\cite{arduino-dl}.  If you have decided to use your own Arduino, make sure you find the necessary USB drivers if you have a board that is older than the Uno.
 
-\litem{Selecting the Correct Board} Once the IDE is open, navigate to the toolbar and select the board you are working with from \textbf{Toolbar $\rightarrow$ Tools $\rightarrow$ Board Arduino $\rightarrow$ Leonardo}.  Select a different board if you are using one.
+% subsection download_and_launch_the_arduino_software (end)
 
-\litem{Selecting a Serial Port}  This step varies from system to system.
+\subsection{Selecting the Board} % (fold)
+\label{sub:selecting_the_board}
+Once the IDE is open, navigate to the toolbar and select the board you are working with from \textbf{Toolbar $\rightarrow$ Tools $\rightarrow$ Board $\rightarrow$ Arduino Leonardo}.  Select a different board if you are using one.
+
+% subsection selecting_the_board (end)
+
+\subsection{Selecting a Serial Port} % (fold)
+
+\label{sub:selecting_a_serial_port}
+This step varies from system to system.
     \begin{figure}[htbp]
         \centering
-            \includegraphics[height=3in]{figures/port-windows.png}
-            
-            
-            \includegraphics[height=2in]{figures/port-osx.png}
+            \includegraphics[height=2in]{figures/port-windows.png}
+            \includegraphics[height=1.5in]{figures/port-osx.png}
         \caption{Port Selection in Windows and OS X}
         \label{fig:figures_port}
     \end{figure}
-    \newcommand\slitem[1]{\item{\bfseries #1\\}}
-    \begin{enumerate}
-        \slitem{Windows}
-        Select \textbf{Toolbar $\rightarrow$ Tools $\rightarrow$ Serial Port $\rightarrow$ COM3} where COM3 is the serial port that has been assigned to your Arduino by windows.  You should only have one port available.
-        
-        
-        \slitem{OS X}
-        Select \textbf{Toolbar $\rightarrow$ Tools $\rightarrow$ Serial Port $\rightarrow$ /dev/tty.usbmodem3d11} where COM3 is the serial port that has been assigned to your Arduino by windows.  You should only have one port available.
-    \end{enumerate}
 
-\litem{Uploading your first program}
-    Navigate to \textbf{Toolbar $\rightarrow$ File $\rightarrow$ Examples $\rightarrow$ 01. Basics $\rightarrow$ Blink}.  Press the verify button.  It should compile the sketch and return a `Done compiling' message.  If you get an error, something went wrong.
+\subsubsection{Windows} % (fold)
+
+\label{ssub:windows}
+Select \textbf{Toolbar $\rightarrow$ Tools $\rightarrow$ Serial Port $\rightarrow$ COM3} where COM3 is the serial port that has been assigned to your Arduino by windows.  You should only have one port available.
+
+% subsubsection windows (end)
+
+\subsubsection{OS X} % (fold)
+\label{ssub:os_x}
+Select \textbf{Toolbar $\rightarrow$ Tools $\rightarrow$ Serial Port $\rightarrow$ /dev/tty.usbmodem3d11} where COM3 is the serial port that has been assigned to your Arduino by windows.  You should only have one port available.
+
+% subsubsection os_x (end)
+
+% subsection selecting_a_serial_port (end)
+
+\subsection{Uploading your first program} % (fold)
+\label{sub:uploading_your_first_program}
+Navigate to \textbf{Toolbar $\rightarrow$ File $\rightarrow$ Examples $\rightarrow$ 01. Basics $\rightarrow$ Blink}.  Press the verify button.  It should compile the sketch and return a `Done compiling' message.  If you get an error, something went wrong.
+
     \begin{figure}[htbp]
         \centering
             \includegraphics{figures/verify.png}\includegraphics{figures/compile.png}
         \caption{Verify Button (Left) Compile Success Message (Right)}
         \label{fig:figures_verify}
     \end{figure}
+
     If that completed, go ahead and upload the program to the board by pressing the upload button and it should provide a similar completion message.  The LEDs on the arduino will blink during the upload, but should settle down after a few seconds.  Once the program you uploaded is running, the LED labeled `L' should be slowly blinking.  This LED labeled `L' is wired to Pin 13 on the arduino, a digital pin with a resistor built in that so that LEDs can be added easily.  \textbf{Go ahead and add an LED between Pin 13 and GND}.  It should blink at the same rate as `L' pin.
-\end{enumerate}
+
+% subsection uploading_your_first_program (end)
 
 Congratulations!  You now have a working Arduino that is talking to the Arduino IDE.
-
-
 
 % subsection setting_up_your_software (end)
 
@@ -98,10 +115,41 @@ Congratulations!  You now have a working Arduino that is talking to the Arduino 
 \section{Programming Arduino} % (fold)
 \label{sec:programming_arduino}
 
-Small intro text
+\begin{minted}[mathescape,
+               linenos,
+               numbersep=5pt,
+               gobble=2,
+               frame=lines,
+               framesep=2mm]{c}
+/*Blink
+  Turns on an LED on for one second, then off for one second, repeatedly.
+ 
+  This example code is in the public domain.
+ */
+ 
+// Pin 13 has an LED connected on most Arduino boards.
+// give it a name:
+int led = 13;
+
+// the setup routine runs once when you press reset:
+void setup() {                
+  // initialize the digital pin as an output.
+  pinMode(led, OUTPUT);     
+}
+
+// the loop routine runs over and over again forever:
+void loop() {
+  digitalWrite(led, HIGH);   // turn the LED on (HIGH is the voltage level)
+  delay(1000);               // wait for a second
+  digitalWrite(led, LOW);    // turn the LED off by making the voltage LOW
+  delay(1000);               // wait for a second
+}\end{minted}
 
 \subsection{Syntax Basics} % (fold)
 \label{sub:syntax_basics}
+
+This is a reference to Figure~\ref{fig:figures_verify}
+Another reference to Figure~\ref{fig:figures_port}
 
 % subsection syntax_basics (end)
 

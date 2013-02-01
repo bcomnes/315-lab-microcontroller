@@ -243,9 +243,7 @@ Here is the pin setup syntax.
 
 In the \textbf{Blink} code, we designate the pin associated with the \texttt{led} variable, pin 13, as an \texttt{OUTPUT}.  The \texttt{OUTPUT} type means that the pin is a digital pin that will output 0V or 5V, depending if we write \texttt{HIGH} or \texttt{LOW} to that pin in our program.
 
-Each pin has a name assigned to it.  Each pin on the Arduino has its name printed next to it, which can be seen in Figure~\ref{fig:figures_ArduinoLeonardoFront_2_450px}.  A list of pins, and some of their useful possible pin types can seen in Table~\ref{tab:pintypess}~.
-
-There are two types of input and output pins.  Digital and Analog pins.
+Each pin has a name assigned to it.  Each pin on the Arduino has its name printed next to it, which can be seen in Figure~\ref{fig:figures_ArduinoLeonardoFront_2_450px}.  A list of pins, and some of their useful possible pin types can seen in Table~\ref{tab:pintypes}~.  There are two types of input and output pins.  Digital and Analog pins.
 
 Digital pins and read digital signals, and generate digital signals as well as PWM analog signals.  PWM, or Pulse Width Modulation, is a way to simulate analog voltage signals with a digital pin.  PWM capable pins have a ~ printed next to their name on the board.
 
@@ -302,8 +300,75 @@ Congratulations, you now should have some basic understanding of how an Arduino 
 
 % section understanding_the_blink_program (end)
 
+\subsection{Modifying the Blink Program} % (fold)
+\label{sub:modifying_the_blink_program}
+
+Now you will try your hand at modifying the blink program.  What we are going to do is define a new variable called \texttt{wait}, give it a value, and then replace the delay time on the Arduino with our new variable. 
+
+\subsubsection{Create a new variable} % (fold)
+\label{ssub:create_a_new_variable}
+
+Right below the \texttt{led} variable declaration, add a new variable named \texttt{wait} of type \texttt{int} and give it a reasonable value different than 1000 (like 100).  Also, add a comment describing what this variable is used for.
+% subsubsection create_a_new_variable (end)
+
+\subsubsection{Use your new variable} % (fold)
+\label{ssub:use_your_new_variable}
+
+We want to use this new variable to declare the time we wait in between turning our LED on and off.  Go ahead and replace the old delay values with your new variable name.  
+
+% subsubsection use_your_new_variable (end)
+
+\subsubsection{Verify and Upload your modified program} % (fold)
+\label{ssub:verify_and_upload_your_modified_program}
+
+The Arduino should still be set up from when you first uploaded the first blink program.  Verify your new program to see if it compiles.  If you get an error, check what you did again.  Did you forget a semicolon or a brace?
+
+Once your program verifies, and you are able to upload it to your board, you should start to see your LED blink faster or slower, depending on the value you defined your variable as.
+
+% subsubsection verify_and_upload_your_modified_program (end)
+
+\subsubsection{Final modification} % (fold)
+\label{ssub:final_modification}
+
+Once you make your modification, you will have something code that looks similar to 
+\begin{figure}[htbp]
+	\centering
+\begin{minted}[mathescape,
+				linenos,
+				numbersep=5pt,
+				gobble=0,
+				frame=lines,
+				framesep=2mm]{c}
+int led = 13;
+int wait = 100; // Time to wait before blinking
+
+void setup() {                
+  pinMode(led, OUTPUT);     
+}
+
+void loop() {
+  digitalWrite(led, HIGH);   
+  delay(wait);  //Wait for the ammount declaired in the wait variable         
+  digitalWrite(led, LOW);    
+  delay(wait);  //Wait for the ammount declaired in the wait variable        
+}
+\end{minted}
+	\caption{The modified Blink Program}
+	\label{fig:blinkmod}
+\end{figure}
+
+% subsubsection final_modification (end)
+
+% subsection modifying_the_blink_program (end)
 
 % section programming_arduino (end)
+
+\section{Using Inputs to Control outputs} % (fold)
+\label{sec:using_inputs_to_control_outputs}
+
+In this section, you will 
+
+% section using_inputs_to_control_outputs (end)
 
 \bibliography{references} 
 \bibliographystyle{plain} \nocite{*}

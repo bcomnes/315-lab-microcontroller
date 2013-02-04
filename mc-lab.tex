@@ -300,7 +300,7 @@ Congratulations, you now should have some basic understanding of how an Arduino 
 
 % section understanding_the_blink_program (end)
 
-\subsection{Modifying the Blink Program} % (fold)
+\section{Modifying the Blink Program} % (fold)
 \label{sub:modifying_the_blink_program}
 
 Now you will try your hand at modifying the blink program.  What we are going to do is define a new variable called \texttt{wait}, give it a value, and then replace the delay time on the Arduino with our new variable. 
@@ -330,7 +330,7 @@ Once your program verifies, and you are able to upload it to your board, you sho
 \subsubsection{Final modification} % (fold)
 \label{ssub:final_modification}
 
-Once you make your modification, you will have something code that looks similar to 
+Once you make your modification, you will have code that looks similar to Figure~\ref{fig:blinkmod}.
 \begin{figure}[htbp]
 	\centering
 \begin{minted}[mathescape,
@@ -338,13 +338,13 @@ Once you make your modification, you will have something code that looks similar
 				numbersep=5pt,
 				gobble=0,
 				frame=lines,
-				framesep=2mm]{c}
+				framesep=2mm]{c++}
 int led = 13;
 int wait = 100; // Time to wait before blinking
 
 void setup() {                
   pinMode(led, OUTPUT);     
-}
+} 
 
 void loop() {
   digitalWrite(led, HIGH);   
@@ -366,9 +366,64 @@ void loop() {
 \section{Using Inputs to Control outputs} % (fold)
 \label{sec:using_inputs_to_control_outputs}
 
-In this section, you will 
+\subsection{Understanding PWM} % (fold)
+\label{sub:understanding_pwm}
+
+Some info and questions about PWM
+
+% subsection understanding_pwm (end)
+
+\subsection{Potentiometer} % (fold)
+\label{sub:potentiometer}
+
+Controlling the brightness with a pot
+
+% subsection potentiometer (end)
+
+\subsection{Photo Resistor} % (fold)
+\label{sub:photo_resistor}
+
+Controlling the brightness with a pot
+
+% subsection photo_resistor (end)
 
 % section using_inputs_to_control_outputs (end)
+
+\section{PID and LEDs} % (fold)
+\label{sec:pid_and_leds}
+
+Controlling brightness of an LED using a photo resistor and the PID library
+
+% section pid_and_leds (end)
+
+\section{PID Temperature Control} % (fold)
+\label{sec:pid_temperature_control}
+
+Controlling the temperature using PID and a fan.
+
+% section pid_temperature_control (end)
+
+\section{PID Extras} % (fold)
+\label{sec:pid_extras}
+
+\subsection{Implementing your own PID algorithm} % (fold)
+\label{sub:implementing_your_own_pid_algorithm}
+
+\subsection{Auto-tuning PID} % (fold)
+\label{sub:auto-tuning_pid}
+
+% subsection incorporating_ (end)
+
+% subsection implementing_your_own_pid_algorithm (end)
+
+% section pid_extras (end)
+
+\section{Communicating With other Devices} % (fold)
+\label{sec:communicating_with_other_devices}
+
+Opening serial ports and talking to humans and computers.
+
+% section communicating_with_other_devices (end)
 
 \bibliography{references} 
 \bibliographystyle{plain} \nocite{*}

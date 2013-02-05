@@ -367,42 +367,120 @@ void loop() {
 
 % section programming_arduino (end)
 
-\section{Using Inputs to Control outputs} % (fold)
+\section{Using Inputs to Control Outputs} % (fold)
 \label{sec:using_inputs_to_control_outputs}
 
 \subsection{Understanding PWM} % (fold)
 \label{sub:understanding_pwm}
 
-The Arduino cannot output true analog signals.  It can, however, generate Pulse Width Modulation (PWM) signals, which are similar to analog signals and can sometimes work interchangeably.  
+Arduino cannot output true analog signals.  It can, however, generate Pulse Width Modulation (PWM) signals, which are similar to analog signals and can sometimes work interchangeably.  
 
 \begin{quote}
 \emph{``Pulse-width modulation uses a rectangular pulse wave whose pulse width is modulated resulting in the variation of the average value of the waveform'''} -- Wikipedia\cite{pwm}
 \end{quote}
 
-Basically, if driving an LED with a PWM signal, you are able to vary the brightness of the LED by making it blink faster than the eye can detect.  The result is that you can generate signals with similar properties as analog signals using pins only capable of producing digital outputs.
+Basically, if driving an LED with a PWM signal, you are able to vary the brightness of the LED by having it blink really fast while changing the duration of each blink.  The result is that you can generate signals with similar properties as analog signals using pins only capable of producing digital outputs.
 
-\subsection{Observing PWM} % (fold)
+\subsubsection{Observing PWM} % (fold)
 \label{sub:observing_pwm}
 
-Load \textbf{01.Basic $\rightarrow$ Fade} program and upload it to your Arduino Board, and wire up the LED to the pin that is used in the program.  You should observe the LED pulsating, but you may notice it have a slight flickr when it gets dimmmer due to the characteristics of the PWM signal.
+Load the \textbf{01.Basic $\rightarrow$ Fade} example program and upload it to your Arduino Board, and wire up the LED to the pin that is used in the program (this requires reading the program).  If you increase the delay time to ~80, you should be able to observe the PWM flicker at lower brightness levels.  
 
-% subsection observing_pwm (end)
+Go ahead and also hook up your function generator to observe PWM output as well.  You can leave the LED in place.  Observe what the signal looks like on your oscilloscope. 
 
-% subsection understanding_pwm (end)
+% subsubsection observing_pwm (end)
 
-\subsection{Potentiometer} % (fold)
+\subsubsection{Potentiometer} % (fold)
 \label{sub:potentiometer}
 
-Controlling the brightness with a pot
+\begin{figure}[htbp]
+    \centering
+        \includegraphics[height=3in]{figures/pot-fade.png}
+    \caption{Arduino controlling brightness of an LED by reading an analog input value.}
+    \label{fig:figures_pot-fade}
+\end{figure}
 
-% subsection potentiometer (end)
 
-\subsection{Photo Resistor} % (fold)
+Next, hook up a 10k potentiometer between the 5v and ground and middle leg to the A0 analog input on your Arduino as seen in Figure~\ref{fig:figures_pot-fade}.  Modify your \textbf{Fade} code to the code in Figure~\ref{fig:fade_mod}
+
+
+\begin{figure}[htbp]
+	\centering
+\begin{minted}[mathescape,
+				linenos,
+				numbersep=5pt,
+				gobble=0,
+				frame=lines,
+				framesep=2mm]{c}
+const int led = 9;      // the pin that the LED is attached to
+//int brightness = 0;
+//int fadeAmount = 5;   // We No longer need these two variables
+const int pot = A0;     // A0 will be the analog input channel
+int sensorValue = 0;    // this will store the value read from the pot
+int outputValue = 0;    // this is the value sent to our pwm pin
+
+void setup()  { 
+  // declare pin 9 to be an output:
+  pinMode(led, OUTPUT);
+  // Open a serial monitor at 9600 baud
+  Serial.begin(9600); 
+} 
+
+void loop()  { 
+  // Read the voltage off of our pot and store it in sensorValue
+  sensorValue = analogRead(pot);   
+  // map sensorValue to the range of the analog out:
+  outputValue = map(sensorValue, 0, 1023, 0, 255); 
+  // write the analog out value to led:
+  analogWrite(led, outputValue);
+  
+  // print the results to the serial monitor:
+  Serial.print("sensor = " );                       
+  Serial.print(sensorValue);      
+  Serial.print("\t output = ");      
+  Serial.println(outputValue); 
+
+  // wait 2 milliseconds before the next loop
+  // for the analog-to-digital converter to settle
+  // after the last reading:
+  delay(2);  
+}
+\end{minted}
+	\caption{The blink program modified to control the LED with a Potentiometer}
+	\label{fig:fade_mod}
+\end{figure}
+
+Looking over the changes we made, we declared a few new variables to keep track of an analog input pin and variables used for storing values from our analog input readings and our PWM output values.  See the comments in the code for more context.  
+
+We also used the 
+\texttt{Serial.begin(9600);} line in our \texttt{void setup()} loop to tell the Arduino that we want to open a serial communication session with our computer.  This is a nice method to debug your code, as it lets us ask the Arduino to report information to us over the serial line. 
+
+The next new piece of code is \texttt{analogRead(pot);}.  This does what it sounds like.  It reads the 0-5\emph{v} input on pin \texttt{pot} and converts it to a value between 0 and 1023.
+
+We can only output PWM values analogous to 0 and 5\emph{v} by writing a value between 0 and 255 to our led pin.  Lucky we have a useful command called \texttt{map ([input value to map], [input lower bound], [input upper bound], [output lower bound],[output upper bound])} which handles the analog input range to PWM output range conversion for us.
+
+Next we write the adjusted input value to our \texttt{led} pin using \texttt{analogWrite(led, outputValue);}. 
+
+Finally we print these input and output values the the serial line using the \texttt{Serial.print(value);} command.  \textbf{Open the serial monitor now to view these values in real time.  Go to \emph{Tools} $\rightarrow$  \emph{Serial Monitor}}.  You should see the input and output values similar to Figure~\ref{fig:figures_serial-mon}.
+
+\begin{figure}[htbp]
+    \centering
+        \includegraphics[height=2.5in]{figures/serial-mon.png}
+    \caption{The serial monitor in action}
+    \label{fig:figures_serial-mon}
+\end{figure}
+
+
+% subsubsection potentiometer (end)
+
+\subsubsection{Photo Resistor} % (fold)
 \label{sub:photo_resistor}
 
-Controlling the brightness with a pot
+
 
 % subsection photo_resistor (end)
+
+% subsection understanding_pwm (end)
 
 % section using_inputs_to_control_outputs (end)
 

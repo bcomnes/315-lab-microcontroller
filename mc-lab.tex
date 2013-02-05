@@ -373,7 +373,20 @@ void loop() {
 \subsection{Understanding PWM} % (fold)
 \label{sub:understanding_pwm}
 
-Some info and questions about PWM
+The Arduino cannot output true analog signals.  It can, however, generate Pulse Width Modulation (PWM) signals, which are similar to analog signals and can sometimes work interchangeably.  
+
+\begin{quote}
+\emph{``Pulse-width modulation uses a rectangular pulse wave whose pulse width is modulated resulting in the variation of the average value of the waveform'''} -- Wikipedia\cite{pwm}
+\end{quote}
+
+Basically, if driving an LED with a PWM signal, you are able to vary the brightness of the LED by making it blink faster than the eye can detect.  The result is that you can generate signals with similar properties as analog signals using pins only capable of producing digital outputs.
+
+\subsection{Observing PWM} % (fold)
+\label{sub:observing_pwm}
+
+Load \textbf{01.Basic $\rightarrow$ Fade} program and upload it to your Arduino Board, and wire up the LED to the pin that is used in the program.  You should observe the LED pulsating, but you may notice it have a slight flickr when it gets dimmmer due to the characteristics of the PWM signal.
+
+% subsection observing_pwm (end)
 
 % subsection understanding_pwm (end)
 

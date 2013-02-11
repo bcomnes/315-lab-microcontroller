@@ -1,0 +1,91 @@
+\documentclass[11pt,a4paper]{article}
+\usepackage{enumitem,amssymb,graphicx,epstopdf,authblk,minted,expl3,listings,hyperref}
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage[lmargin=2.5cm, rmargin=2.5cm,tmargin=3cm,bmargin=2.5cm]{geometry}
+% You must have pygments installed for this program to work
+% Assuming a working python installation, rin $ pip install pygments
+% Make sure pygmentize is available in your latex compiler/text editors $PATHs
+
+\begin{document}
+
+\title{Introduction to Micro-controllers}
+\date{\today} 
+\author{Andres LaRosa}
+\author{Bret Comnes}
+\affil{Portland State University}
+\maketitle
+
+\section{PID and LEDs} % (fold)
+\label{sec:pid_and_leds}
+
+PID (Proportional, Integral, Differential) is way to control a system and take into account any kind error in your control mechanism.   There are there primary components to think about in a PID control loop. You have voltage corresponding to the current state of your system (position, temperature, etc) that is called your ``Process Variable'' or $PV$.  You also have a setpoint ($SP$) voltage, corresponding to the state you wish your $PV$ to reach.  Third, you have a control voltage, $u$, which corresponds to the instantaneous voltage value you are using to drive your system towards its $SP$ voltage.
+
+The PID algorithm is show in Equation~\ref{eqn:pid}.
+
+
+\begin{equation}
+    \label{eqn:pid}
+    u(t) = MV(t) = K_{p} e(t) + K_{i} \int _{0}^t e(\tau)d\tau + K_{d} \frac{d}{dt}e(t)
+\end{equation}
+% section pid_and_leds (end)
+
+There is a proportional, integral and differential part to Equation~\ref{eqn:pid}.  The constants $K_{p}$, $K_{i}$, and $K_{d}$ are used to set the sign and contribution gain of each part of this equation.  $e(t)$ is your proportional ``error'' corresponding to $SP - PV$.  The variable $t$ corresponds to the current time in our system, and $\tau$ is simply a variable of integration.  
+
+The proportional portion of the equation takes into account how far away our $PV$ is from our $SP$.  The differential part takes into account how fast we are moving (if we move to fast near our $SP$, we will over shoot), and can be used to reduce the proportional portion if we are moving to fast, or speed us up if we are experiencing resistance despite our proportional contribution.  
+
+The integral part of the equation takes into account how long we have been off of the set point, contributing more to our output the longer we are missing the $SP$.  This is important because our P and D contributions will typically lead our $PV$ to sag slightly above or below our $SP$ variable.\cite{pid}
+
+\subsection{Installing Libraries} % (fold)
+\label{sub:installing_libraries}
+
+\subsubsection{Windows} % (fold)
+\label{ssub:windows_libraries}
+
+% subsubsection windows (end)
+
+\subsubsection{OS X} % (fold)
+\label{ssub:os_x_libraries}
+
+% subsubsection os_x (end)
+
+% subsection installing_libraries (end)
+
+\subsection{Using the PID Library} % (fold)
+\label{sub:using_the_pid_library}
+
+% subsection using_the_pid_library (end)
+
+\section{PID Temperature Control} % (fold)
+\label{sec:pid_temperature_control}
+
+Controlling the temperature using PID and a fan.
+
+% section pid_temperature_control (end)
+
+\section{PID Extras} % (fold)
+\label{sec:pid_extras}
+
+\subsection{Implementing your own PID algorithm} % (fold)
+\label{sub:implementing_your_own_pid_algorithm}
+
+\subsection{Auto-tuning PID} % (fold)
+\label{sub:auto-tuning_pid}
+
+% subsection incorporating_ (end)
+
+% subsection implementing_your_own_pid_algorithm (end)
+
+% section pid_extras (end)
+
+\section{Communicating With other Devices} % (fold)
+\label{sec:communicating_with_other_devices}
+
+Opening serial ports and talking to humans and computers.
+
+% section communicating_with_other_devices (end)
+
+\bibliography{references} 
+\bibliographystyle{plain} \nocite{*}
+
+\end{document}

@@ -461,75 +461,107 @@ Using the same code as in Section~\ref{sub:potentiometer}, observe the output of
 
 % subsection understanding_pwm (end)
 
+\subsection{Arduino Thermostat} % (fold)
+\label{sub:arduino_thermistat}
+
+We will now use a \texttt{TMP36} temperature sensor as an analog input to read in temperature data, and control an LED to indicate we have reached a particular temperature.  The \texttt{TMP36} provides an accurate, linear representation of temperature between the range of $-40\,^{\circ}\mathrm{C}$ and $-125\,^{\circ}\mathrm{C}$ using the factor of $10 \frac{\mathrm{mV}}{^{\circ}\mathrm{C}}$.\cite{temp}  See the data sheet for more info.\cite{tmpds}  \textbf{Hook up the circuit in Figure~\ref{fig:figures_temp-led}}.
+
+\begin{figure}[htbp]
+    \centering
+        \includegraphics[height=3in]{figures/temp-led.pdf}\includegraphics[height=1.5in]{figures/tmp35.pdf}
+        \caption{Circuit for Subsection~\ref{sub:arduino_thermistat} and \texttt{TMP36} Pinout}
+    \label{fig:figures_temp-led}
+\end{figure}
+
+For our code, we will be reading the potentiometer as an analog input and use its position as our threshold value.  We will compare this threshold value to the current temperature, and if the temperature is above the threshold, the LED will turn on, and if it is below, it will turn off.  We will also be monitoring the values using the serial monitor so we can tell what is going on.  See if you can write this program on your own, or look at Figure~\ref{fig:temp_led_code}.
+
+\begin{figure}[htbp]
+	\centering
+\begin{minted}[mathescape,
+				linenos,
+				numbersep=5pt,
+				gobble=0,
+				frame=lines,
+				framesep=2mm]{c}
+
+const int threshold = A0;  // threshold set with 10k pot
+const int temp = A1; // TMP36 Temp sensor
+const int led = 9; //LED Pin
+
+int thresholdValue = 0;        // value used to store threshold value from the pot
+int tempValue = 0;        // value used to store temp read from the temp sensor
+boolean ledState = false; // value used to write the led state
+
+void setup() {
+  digitalWrite(led, ledState);
+  Serial.begin(9600); 
+}
+
+void loop() {
+  // read the pot value and map it to the right scale
+  thresholdValue = map(analogRead(threshold),0,1023,0,255);
+  tempValue = analogRead(temp); // read the temp
+
+  if (tempValue > thresholdValue) {
+    ledState = true; //if temp > threshold, turn on LED
+  }
+  else {
+    ledState = false; //if temp < threshold, turn off LED
+  }
+  digitalWrite(led,ledState); // This writes the state determined above
+
+  // print the results to the serial monitor:
+  Serial.print("thresholdValue = " );                       
+  Serial.print(thresholdValue);      
+  Serial.print("\t tempValue = ");
+  Serial.print(tempValue);
+  Serial.print("\t LED on?: ");
+  Serial.println(ledState);
+
+  delay(2); //Small settle delay for ADC   
+}
+
+\end{minted}
+	\caption{Arduino Thermostat Program}
+	\label{fig:temp_led_code}
+\end{figure}
+
+\subsubsection{Testing the Thermostat} % (fold)
+\label{ssub:testing_the_thermostat}
+
+Upload your program and open the the serial monitor.  You should see a value from your \texttt{TMP36} as well as your potentiometer and the state of the LED.  Adjust the pot to where the LED turns on, with the threshold below the temperature value.  Also try setting the threshold above the current temperature and confirming the LED turns off.
+
+Now, set the threshold a few integer values above the current temperature value.  Pinch the temperature sensor to increase its temperature and confirm that it turns on.  
+
+You now have a working temperature sensor controlling hardware.  You can do a lot of things with this now.  You could write a program on your computer to log the incoming data.  You could hook up a fan using an NPM resistor  (since the Arduino cannot provide enough current to motors typically) and turn on a fan if it get to hot in here.  You could also have the Arduino calculate the actual temperature using the \texttt{TMP36} characteristics described in the beginning of Section~\ref{sub:arduino_thermistat}.
+
+
+% subsubsection testing_the_thermostat (end)  
+
+% subsection arduino_thermistat (end)
+
 % section using_inputs_to_control_outputs (end)
-
-\section{PID and LEDs} % (fold)
-\label{sec:pid_and_leds}
-
-PID (Proportional, Integral, Differential) is way to control a system and take into account any kind error in your control mechanism.   There are there primary components to think about in a PID control loop. You have voltage corresponding to the current state of your system (position, temperature, etc) that is called your ``Process Variable'' or $PV$.  You also have a setpoint ($SP$) voltage, corresponding to the state you wish your $PV$ to reach.  Third, you have a control voltage, $u$, which corresponds to the instantaneous voltage value you are using to drive your system towards its $SP$ voltage.
-
-The PID algorithm is show in Equation~\ref{eqn:pid}.
-
-
-\begin{equation}
-    \label{eqn:pid}
-    u(t) = MV(t) = K_{p} e(t) + K_{i} \int _{0}^t e(\tau)d\tau + K_{d} \frac{d}{dt}e(t)
-\end{equation}
-% section pid_and_leds (end)
-
-There is a proportional, integral and differential part to Equation~\ref{eqn:pid}.  The constants $K_{p}$, $K_{i}$, and $K_{d}$ are used to set the sign and contribution gain of each part of this equation.  $e(t)$ is your proportional ``error'' corresponding to $SP - PV$.  The variable $t$ corresponds to the current time in our system, and $\tau$ is simply a variable of integration.  
-
-The proportional portion of the equation takes into account how far away our $PV$ is from our $SP$.  The differential part takes into account how fast we are moving (if we move to fast near our $SP$, we will over shoot), and can be used to reduce the proportional portion if we are moving to fast, or speed us up if we are experiencing resistance despite our proportional contribution.  
-
-The integral part of the equation takes into account how long we have been off of the set point, contributing more to our output the longer we are missing the $SP$.  This is important because our P and D contributions will typically lead our $PV$ to sag slightly above or below our $SP$ variable.\cite{pid}
-
-\subsection{Installing Libraries} % (fold)
-\label{sub:installing_libraries}
-
-\subsubsection{Windows} % (fold)
-\label{ssub:windows_libraries}
-
-% subsubsection windows (end)
-
-\subsubsection{OS X} % (fold)
-\label{ssub:os_x_libraries}
-
-% subsubsection os_x (end)
-
-% subsection installing_libraries (end)
-
-\subsection{Using the PID Library} % (fold)
-\label{sub:using_the_pid_library}
-
-% subsection using_the_pid_library (end)
-
-\section{PID Temperature Control} % (fold)
-\label{sec:pid_temperature_control}
-
-Controlling the temperature using PID and a fan.
-
-% section pid_temperature_control (end)
-
-\section{PID Extras} % (fold)
-\label{sec:pid_extras}
-
-\subsection{Implementing your own PID algorithm} % (fold)
-\label{sub:implementing_your_own_pid_algorithm}
-
-\subsection{Auto-tuning PID} % (fold)
-\label{sub:auto-tuning_pid}
-
-% subsection incorporating_ (end)
-
-% subsection implementing_your_own_pid_algorithm (end)
-
-% section pid_extras (end)
 
 \section{Communicating With other Devices} % (fold)
 \label{sec:communicating_with_other_devices}
 
-Opening serial ports and talking to humans and computers.
+The last thing we shall attempt is having the Arduino communicate with an external program running on our computer.  For this we will utilize processing, since it integrates well with Arduino and has a similar code syntax, but you could do this using any programming language you wanted such as Python or LabVIEW.  While we have already talked to the Arduino using our computer and the handy serial monitor, here we will write a program the interfaces with the Arduino directly over the serial line.
 
+\subsection{Sending Data to an External Program} % (fold)
+\label{sub:sending_data_to_an_external_program}
+
+This example is based off of the \textbf{Graph} example program found in \textbf{\emph{File} $\rightarrow$ \emph{Examples} $\rightarrow$ \emph{04. Communication} $\rightarrow$ \emph{Graph}}.  We can use the same circuit as above, as all we are doing is sending the potentiometer signal out of the serial line again. 
+
+Go ahead and upload this program to your Arduino and make sure it runs by watching the serial bus.
+
+Launch a program called \emph{Processing} along side your Arduino IDE.  It looks basically the same as the Arduino editor but is a different color.  Enter the code from the comment in the Arduino \emph{Graph} program into a new Processing sketch, remove the comment wrapper and make sure it compiles.  If you did everything right, when you launch the Processing sketch, it should start plotting the value being read in from the potentiometer value.
+
+% subsection sending_data_to_an_external_program (end)
+
+\subsection{Sending commands Arduino Externally} % (fold)
+\label{sub:sending_commands_arduino_externally}
+Placeholder to control LED using remote serial bus commands from a computer.
+% subsection sending_commands_arduino_externally (end)
 % section communicating_with_other_devices (end)
 
 \bibliography{references} 

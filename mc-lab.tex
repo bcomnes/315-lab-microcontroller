@@ -19,9 +19,9 @@
 \section{Introduction} % (fold)
 \label{sec:introduction}
 
-Microcontrollers are small computers designed to go where desktop computers dare not go.  They come in all shapes, sizes, and layouts.  Usually, they are quite small and use less power than traditional computers.  Microcontrollers are often deployed in an `appliances' and serve an unmodifiable dedicated purpose, such as keeping track of what spin cycle your washing machine is on, or how much time is left before it should turn off your microwave oven.  Make no mistake however, these are general purpose computers.  The other major difference between a microcontroller and traditional computers is that they they come with an array of analog and digital input and outputs. These inputs and outputs can be used to read environmental data from sensors, talk to other computers or devices and electronically control other systems which provide environmental outputs such as a LCD screen, mechanical switches or servo motors etc.  \cite{wpmicro}
+Microcontrollers are small computers designed to go where desktop computers dare not go.  They come in all shapes, sizes, and layouts.  Usually, they are quite small and use less power than traditional computers.  Microcontrollers are often deployed in an `appliances' and serve an unmodifiable dedicated purpose, such as keeping track of what spin cycle your washing machine is on, or how much time is left before it should turn off your microwave oven.  Make no mistake however, these are general purpose computers.  The other major difference between a microcontroller and traditional computers is that they they come with an array of analog and digital inputs and outputs. These inputs and outputs can be used to read environmental data from sensors, talk to other computers or devices and electronically control other systems which provide environmental outputs such as a LCD screens, mechanical switches or servo motors etc.  \cite{wpmicro}
 
-Getting started with microcontrollers can be tedious process, as they can require a number of supporting circuits, USB controllers, programmers, boot-loaders and power supplies just to load your first program onto the microcontroller chip.  Often times you will start with a prototyping board, which puts all of the necessary components in a convenient ready to use package.
+Getting started with microcontrollers can be a tedious process, as they can require a number of supporting circuits, USB controllers, programmers, boot-loaders and power supplies just to load your first program onto the microcontroller chip.  Often times you will start with a prototyping board which puts all of the necessary components in a convenient, ready to use package.
 
 \subsection{Arduino} % (fold)
 \label{sub:arduino}
@@ -44,7 +44,7 @@ Arduino drastically lowers the difficulty of getting started with a microcontrol
 
 Arduino is based around an 8-bit Atmel AVR microcontroller, and has supporting systems like a boot loader for uploading programs, a USB controller as well as a barrel jack for external power.
 
-It is programmed using a language that is based off of C++ and uses a fork of the Processing IDE used for writing, compiling and uploading your programs to the board.  Many Arduino projects you will find will rely on programs running on your computer using Processing, but can interface with any serial enabled programs.\cite{processing}
+It is programmed using a language that is based off of C++ and uses a fork of the Processing IDE used for writing, compiling and uploading your programs to the board.  Many example Arduino projects you will find will rely on programs running on your computer using Processing, but can interface with any serial enabled programs.\cite{processing}
 
 % subsection arduino (end)
 
@@ -54,27 +54,29 @@ It is programmed using a language that is based off of C++ and uses a fork of th
 \section{Getting Started} % (fold)
 \label{sec:getting_started}
 
-\subsection{Setting up your software} % (fold)
-
 This lab is based off of the Arduino 1.0.3 software which can be downloaded for free from the Arduino website.\cite{arduino_dl}  Unlike other embedded systems development environments, the Arduino software is quick to download and set up, and has zero cost associated with the software which makes it a convenient to work with when your primary goal is to come up with a working prototype quickly and cheaply.
 
-It also has a large community and a massive pool of example programs and libraries.
+It also has a large community and a massive pool of example programs and libraries compared to other educational prototyping boards.
+
+Whatever you do, \textbf{DO NOT APPLY MORE THAN 5V TO ANY PIN ON THE ARDUNIO.}  It could damage or destroy the \$23 board.  Also, avoid powering high current draw devices directly with the Arduino.  Instead opt for a separate power source and an NPM transistor or something similar.  Basically, avoid finding creative ways to break the equipment.
 
 \subsection{Find a Computer} % (fold)
 \label{sub:find_a_computer}
-You are free to use your own laptop or one of the classroom computers.  Plug your Arduino into the computer using the micro USB cable.  \textbf{Please be careful with the delicate connectors.}
+You are free to use your own laptop or one of the classroom computers.  \textbf{Plug your Arduino into the computer using the micro USB cable}.  \textbf{Please be careful with the delicate connectors}.  
+
+You may be prompted to add hardware if you are on windows.  If it asks for a driver, tell the windows driver wizard to look inside a folder called \textbf{drivers} inside the Arduino folder.  If the computer you are using already has the Arduino software downloaded, look inside that folder usually found in \textbf{Program Files} or wherever you copied it or the shortcut on the desktop leads too.
 
 % subsection find_a_computer (end)
 
 \subsection{Download and Launch the Arduino Software} % (fold)
 \label{sub:download_and_launch_the_arduino_software}
-Visit \url{http://arduino.cc/en/Main/Software} and downloaded the latest Arduino software\cite{arduino_dl}.  If you have decided to use your own Arduino, make sure you find the necessary USB drivers if you have a board that is older than the Uno.
+Visit \url{http://arduino.cc/en/Main/Software} and downloaded the latest Arduino Integrated Development Enviroment (IDE)\cite{arduino_dl}.  If you have decided to use your own Arduino, make sure you find the necessary USB drivers if you have a board that is older than the Uno.  You may also check around class to see if the Arduino software is available on someones USB drive.
 
 % subsection download_and_launch_the_arduino_software (end)
 
 \subsection{Selecting the Board} % (fold)
 \label{sub:selecting_the_board}
-Once the IDE is open, navigate to the toolbar and select the board you are working with from \textbf{Toolbar $\rightarrow$ Tools $\rightarrow$ Board $\rightarrow$ Arduino Leonardo}.  If you are using a different board , select the one you have from this list instead.  This step may vary from system to system as well, but pick the option most similar to this write up.
+We now need to tell the Ardiono IDE what hardware we will be compiling for. Once the IDE is open, navigate to the toolbar and select the board you are working with from \textbf{Toolbar $\rightarrow$ Tools $\rightarrow$ Board $\rightarrow$ Arduino Leonardo}.  If you are using a different board , select the one you have from this list instead.  This step may vary from system to system as well, but pick the option most similar to this write up.
 
 % subsection selecting_the_board (end)
 
@@ -93,13 +95,13 @@ This step varies from system to system.  In this step, we tell the computer whic
 \subsubsection{Windows} % (fold)
 
 \label{ssub:windows}
-Select \textbf{Toolbar $\rightarrow$ Tools $\rightarrow$ Serial Port $\rightarrow$ COM3} where COM3 is the serial port that has been assigned to your Arduino by windows.  You should only have one port available.
+Select \textbf{Toolbar $\rightarrow$ Tools $\rightarrow$ Serial Port $\rightarrow$ COM5} where COM5 is the serial port that has been assigned to your Arduino by windows.  You may have more than one port in the list.  To know which port is associated with the Arduino, you can check the list with the Arduino unplugged, and check it again with it plugged in, and the port that appears after is your Arduino.
 
 % subsubsection windows (end)
 
 \subsubsection{OS X} % (fold)
 \label{ssub:os_x}
-Select \textbf{Toolbar $\rightarrow$ Tools $\rightarrow$ Serial Port $\rightarrow$ /dev/tty.usbmodem3d11} where COM3 is the serial port that has been assigned to your Arduino by windows.  You should only have one port available.
+Usually the Arduino is the first item in the Serial Port list.  Another way to tell is that it has \texttt{tty} in the name and does not have the world `bluetooth' in it.
 
 % subsubsection os_x (end)
 
@@ -107,19 +109,18 @@ Select \textbf{Toolbar $\rightarrow$ Tools $\rightarrow$ Serial Port $\rightarro
 
 \subsection{Uploading your first program} % (fold)
 \label{sub:uploading_your_first_program}
-Next we will open an example program, verify that it compiles, then upload it to our board.
+Next we will open an example program, verify that it compiles, then upload it to our board.  Compiling your program lets the compiler check your work for syntax and structure errors, and is quicker than uploading.
 
-
-Navigate to \textbf{Toolbar $\rightarrow$ File $\rightarrow$ Examples $\rightarrow$ 01. Basics $\rightarrow$ Blink}.  Press the verify button.  It should compile the sketch and return a `Done compiling' message.  If you get an error, something went wrong.
+Navigate to \textbf{Toolbar $\rightarrow$ File $\rightarrow$ Examples $\rightarrow$ 01. Basics $\rightarrow$ Blink}.  \textbf{Press the verify button}.  It should compile the sketch and return a `Done compiling' message.  If you get an error, something went wrong. See Figure~\ref{fig:figures_verify}. 
 
     \begin{figure}[htbp]
         \centering
             \includegraphics{figures/verify.png}\includegraphics{figures/compile.png}
-        \caption{Verify Button (Left) Compile Success Message (Right)}
+        \caption{Verify and Compile Button (Left) Compile Success Message (Right)}
         \label{fig:figures_verify}
     \end{figure}
 
-If that completed, go ahead and upload the program to the board by pressing the upload button (the button right next to verify button) and it should provide a similar completion message after a few moments.  The LEDs on the Arduino will blink during the upload, but should settle down after a few seconds.  See Figure~\ref{fig:figures_verify}.  
+If that completed, go ahead and \textbf{upload the program to the board by pressing the upload button} (the button right next to verify button) and it should provide a similar completion message after a few moments.  The LEDs on the Arduino will blink during the upload, but should settle down after a few seconds.  Your program is now on the Arduino and running in a loop.
     
 Once the program you uploaded is running, the LED labeled `L' on your Arduino should be slowly blinking.  This LED labeled `L' is wired to Pin 13 on the Arduino, a digital pin with a resistor built in that so that LEDs can be added easily.  \textbf{Go ahead and add an LED between Pin 13 and GND}.  It should blink at the same rate as the `L' LED on the board.
 
@@ -127,8 +128,6 @@ Once the program you uploaded is running, the LED labeled `L' on your Arduino sh
 
 
 Congratulations!  You now have a working Arduino that is talking to the Arduino IDE.
-
-% subsection setting_up_your_software (end)
 
 % section getting_started (end)
 
@@ -144,19 +143,7 @@ The bare minimum code you need for an Arduino program is presented in Figure~\re
 
 \begin{figure}[htbp]
 	\centering
-\begin{minted}[mathescape,
-				linenos,
-				numbersep=5pt,
-				gobble=0,
-				frame=lines,
-				framesep=2mm]{c}
-void setup() {
-// put your setup code here, to run once:
-}
-void loop() {
-// put your main code here, to run repeatedly: 
-}
-\end{minted}
+\inputminted[mathescape,linenos,numbersep=5pt,gobble=0,frame=lines,framesep=2mm]{c}{code/BareMinimum/BareMinimum.ino}
 	\caption{The minimum Amount of code for an Arduino Program}
 	\label{fig:bare}
 \end{figure}
@@ -173,44 +160,14 @@ Lets look at a simple example, that you should already have pulled up, the \text
 
 \begin{figure}[htbp]
 	\centering
-\begin{minted}[mathescape,
-				linenos,
-				numbersep=5pt,
-				gobble=0,
-				frame=lines,
-				framesep=2mm]{c}
-/*
-  Blink
-  Turns on an LED on for one second, then off for one second, repeatedly.
- 
-  This example code is in the public domain.
- */
- 
-// Pin 13 has an LED connected on most Arduino boards.
-// give it a name:
-int led = 13;
-
-// the setup routine runs once when you press reset:
-void setup() {                
-  // initialize the digital pin as an output.
-  pinMode(led, OUTPUT);     
-}
-
-// the loop routine runs over and over again forever:
-void loop() {
-  digitalWrite(led, HIGH);   // turn the LED on (HIGH is the voltage level)
-  delay(1000);               // wait for a second
-  digitalWrite(led, LOW);    // turn the LED off by making the voltage LOW
-  delay(1000);               // wait for a second
-}
-\end{minted}
+\inputminted[mathescape,linenos,numbersep=5pt,gobble=0,frame=lines,framesep=2mm]{c}{code/blink/blink.ino}
 	\caption{The Blink Program in all its glory}
 	\label{fig:blink}
 \end{figure}
 
 If a block of text is wrapped in \texttt{/* */}, such as lines 1 thru 6 in Figure~\ref{fig:blink} or has a \texttt{//} in front of it on one line, such as line 12, means it's a comment.  Comments are little notes you leave in your code.   They are not executed or interpreted by your program in any way.  It is good practice to add comments to your code.  They can help you think about your program, and will also remind you, and others that see your code, what the program does or how it works.
 
-Running down lines 1-9, we see that this is all comments describing the function of the program, how it works, as well as the license.   The first piece of code we see is on line 10.
+Running down lines 1-9, we see a block of comments describing the function of the program, how it works, as well as the license.   The first piece of code we see is on line 10.
 
 
 \subsection{Variables} % (fold)
@@ -222,7 +179,7 @@ The first thing to notice, is that this code is not inside \texttt{void setup()}
 
 Variables are incredibly useful tools.  Variables store information that can be used later in the program as many times as you need.  They can be updated during run-time and cab be used to store values temporarily for repeated use.
 
-Any variable we decide to use, we have to describe to our program.  This is referred to as declaring your variable.  \textbf{Variables are declared before your \texttt{void setup()} or \texttt{void loop()} sections.}  
+Any variable we decide to use, we have to describe to our program.  This is referred to as declaring your variable.  \textbf{Variables are declared before your \texttt{void setup()} or \texttt{void loop()} sections.} (as far as we are concerned  right now)    
 
 Line 10 declares a variable named \texttt{led}, gives it a variable type of \texttt{int}, for integer, and then assigns it a value of 13.  This variable is used to reference the physical pin we will be using in our program.  It is used as an abstraction layer, so that if we ever go back and change which pin we want to use, we can update all the places in our program that reference this pin number simply by updating the initial variable value.
 
@@ -230,7 +187,7 @@ The basic syntax of a variable declaration is:
 
 \mint{c}|type variable_name = value;|
 
-The available variable types can be found on the Arduino website \cite{ard_ref}
+The available variable types can be found on the Arduino website.\cite{ard_ref}  Please reference that list if you want to use values other than integers.
 
 % subsection variables (end) 
 
@@ -249,7 +206,7 @@ Available pin modes can be found a the Arduino website.\cite{pin_mode}
 
 Each pin has a name assigned to it.  Each pin on the Arduino has its name printed next to it, which can be seen in Figure~\ref{fig:figures_ArduinoLeonardoFront_2_450px}.  There are two primary types of pins:  Digital and Analog.  Digital pins simply have a number for a name, and analog pins have the letter A followed by a number for a name.
 
-Digital pins can read or write digital signals varying from 0 to 5\emph{v}.  Some can also output PWM signals, a way to emulate analog voltage signals with a digital pin PWM capable digital pins have a \texttt{\~} printed next to their name on the board.  See Section~\ref{sub:understanding_pwm} for more information.
+Digital pins can read or write digital signals varying from either 0 or 5\emph{v}.  Some can also output PWM signals, a way to emulate analog voltage signals with a digital pin PWM capable digital pins have a \texttt{\~} printed next to their name on the board.  See Section~\ref{sub:understanding_pwm} for more information.
 
 Analog Pins can read in analog voltages between 0v and 5v and converts them to a value that your program can use between 0 and 1023.  They do not need a pin mode set before reading within your program.
 
@@ -316,26 +273,7 @@ Once your program verifies, and you are able to upload it to your board, you sho
 Once you make your modification, you will have code that looks similar to Figure~\ref{fig:blinkmod}.
 \begin{figure}[htbp]
 	\centering
-\begin{minted}[mathescape,
-				linenos,
-				numbersep=5pt,
-				gobble=0,
-				frame=lines,
-				framesep=2mm]{c++}
-int led = 13;
-int wait = 100; // Time to wait before blinking
-
-void setup() {                
-  pinMode(led, OUTPUT);     
-} 
-
-void loop() {
-  digitalWrite(led, HIGH);   
-  delay(wait);  //Wait for the ammount declaired in the wait variable         
-  digitalWrite(led, LOW);    
-  delay(wait);  //Wait for the ammount declaired in the wait variable        
-}
-\end{minted}
+\inputminted[mathescape,linenos,numbersep=5pt,gobble=0,frame=lines,framesep=2mm]{c}{code/blink_mod/blink_mod.ino}
 	\caption{The modified Blink Program}
 	\label{fig:blinkmod}
 \end{figure}
@@ -363,7 +301,7 @@ Basically, if driving an LED with a PWM signal, you are able to vary the brightn
 \subsubsection{Observing PWM} % (fold)
 \label{sub:observing_pwm}
 
-Load the \textbf{01.Basic $\rightarrow$ Fade} example program and upload it to your Arduino Board, and wire up the LED to the pin that is used in the program (this requires reading the program).  If it is a digital pin other than pin 13, you will need to add a $330\Omega$ resistor in series for good measure.  If you increase the delay time to \~80, you should be able to observe the PWM flicker at lower brightness levels.  
+Load the \textbf{01.Basic $\rightarrow$ Fade} example program and \textbf{upload it to your Arduino Board, and wire up the LED to the pin that is used in the program} (this requires reading the program).  \textbf{If it is a digital pin other than pin 13, you will need to add a $330\Omega$ resistor} in series with the LED.  If you increase the delay time to \~80, you should be able to observe the PWM flicker at lower brightness levels.  
 
 \textbf{Hook up your function generator to observe PWM output}.  You can leave the LED in place.  Observe what the signal looks like on your oscilloscope. 
 
@@ -374,45 +312,20 @@ Load the \textbf{01.Basic $\rightarrow$ Fade} example program and upload it to y
 
 \begin{figure}[htbp]
     \centering
-        \includegraphics[height=4in]{figures/pot-fade.png}
+        \includegraphics[height=4in]{figures/pot-fade.pdf}
     \caption{Potentiometer and LED wired up to the Arduino}
     \label{fig:figures_pot-fade}
 \end{figure}
 
+Now we will control the amplitude of the PWM signal by reading the voltage from a potentiometer being read in on analog input A0.
 
-Next, hook up a 10k potentiometer between the 5v and ground and middle leg to the A0 analog input on your Arduino as seen in Figure~\ref{fig:figures_pot-fade}.  Modify your \textbf{Fade} code to the code in Figure~\ref{fig:fade_mod}
+\textbf{Hook up a 10k potentiometer between the 5v and ground and middle leg to the A0 analog input on your Arduino as seen in Figure~\ref{fig:figures_pot-fade}}.  Modify your \textbf{Fade} code from Section~\ref{sub:observing_pwm}
+ to the code in Figure~\ref{fig:fade_mod}.
 
 \begin{figure}[htbp]
 	\centering
-\begin{minted}[mathescape,
-				linenos,
-				numbersep=5pt,
-				gobble=0,
-				frame=lines,
-				framesep=2mm]{c}
-const int led = 9;      // the pin that the LED is attached to
-const int pot = A0;     // A0 will be the analog input channel
-int sensorValue = 0;    // this will store the value read from the pot
-int outputValue = 0;    // this is the value sent to our pwm pin
-
-void setup()  { 
-  pinMode(led, OUTPUT); // declare pin 9 to be an output
-  Serial.begin(9600); // Open a serial monitor at 9600 baud
-} 
-void loop()  { 
-  sensorValue = analogRead(pot); // store pot value in sensorValue
-  outputValue = map(sensorValue, 0, 1023, 0, 255); // map sensorValue to correct range
-  analogWrite(led, outputValue); // write the analog out value to led:
-  
-  Serial.print("sensor = " ); // print the results to the serial monitor:
-  Serial.print(sensorValue);      
-  Serial.print("\t output = ");      
-  Serial.println(outputValue); 
-
-  delay(2);  // wait 2 milliseconds for daq to settle 
-}
-\end{minted}
-	\caption{The blink program modified to control the LED with a Potentiometer}
+\inputminted[mathescape,linenos,numbersep=5pt,gobble=0,frame=lines,framesep=2mm]{c}{code/pot_fade/pot_fade.ino}
+	\caption{The \textbf{Fade} program modified to control the LED with a Potentiometer}
 	\label{fig:fade_mod}
 \end{figure}
 
@@ -424,11 +337,15 @@ We declared a few new variables to keep track of an analog input pin and variabl
 We also used the 
 \texttt{Serial.begin(9600);} line in our \texttt{void setup()} loop to tell the Arduino that we want to open a serial communication session with our computer (remember how we picked a serial port in Section~\ref{sub:selecting_a_serial_port}?).
 
-Outputting data to the serial line is a nice way to tell what is going on in your code, but remember that your program will run no faster than the speed of your serial line.
+Outputting data to the serial line is a nice way to see what is going on in your code while it is running, but remember that your program will run no faster than the speed of your serial line.
 
 The next new piece of code is \texttt{analogRead(pot);}.  This does what it sounds like.  It reads the 0-5\emph{v} input on pin \texttt{pot} and converts it to a value between 0 and 1023.
 
-We can only output PWM values analogous to 0 and 5\emph{v} by writing a value between 0 and 255 to our led pin.  Lucky we have a useful command called \texttt{map ()} which handles the analog input range to PWM output range conversion for us.  See the \texttt{map} info page for more details.\cite{map}
+We can only output PWM values analogous to 0 and 5\emph{v} by writing a value between 0 and 255 to our led pin.  Lucky we have a useful command called \texttt{map ()} which handles the analog input range to PWM output range conversion for us.  Its syntax is
+
+\mint{c}|map (valuetoscale, fromLow, fromHigh, toLow, toHigh)|
+
+\textbf{See the \texttt{map} info page for more details}.\cite{map}
 
 Next we write the adjusted input value to our \texttt{led} pin using \texttt{analogWrite(led, outputValue);}. 
 
@@ -436,7 +353,7 @@ Finally we print these input and output values the the serial line using the \te
 
 \begin{figure}[htbp]
     \centering
-        \includegraphics[height=1.8in]{figures/serial-mon.png}
+        \includegraphics[height=4in]{figures/serial-mon.png}
     \caption{The serial monitor in action}
     \label{fig:figures_serial-mon}
 \end{figure}
@@ -450,12 +367,12 @@ Finally we print these input and output values the the serial line using the \te
 \textbf{Remove the potentiometer and wire in a photo-resistor as seen in Figure~\ref{fig:figures_photo-res}.}  A photo-resistor has a variable resistance depending on how much light is hitting it. 
 \begin{figure}[htbp]
     \centering
-        \includegraphics[height=3.5in]{figures/photo-res.png}
+        \includegraphics[height=3.5in]{figures/photo-res.pdf}
     \caption{Photo-resistor wired to A0}
     \label{fig:figures_photo-res}
 \end{figure}
 
-Using the same code as in Section~\ref{sub:potentiometer}, observe the output of the photo resistor and the PWM output on pin 9 simultaneously on your oscilloscope.  \textbf{Vary the amount of light hitting the photo-resistor and observe and compare the PWM output and voltage across the photo-resistor.}    
+Using the same code as in Section~\ref{sub:potentiometer}, observe the output of the photo resistor and the PWM output on pin 9 simultaneously on your oscilloscope.  \textbf{Vary the amount of light hitting the photo-resistor and observe and compare the PWM output and analog voltage across the photo-resistor.}    
 
 % subsection photo_resistor (end)
 
@@ -473,55 +390,11 @@ We will now use a \texttt{TMP36} temperature sensor as an analog input to read i
     \label{fig:figures_temp-led}
 \end{figure}
 
-For our code, we will be reading the potentiometer as an analog input and use its position as our threshold value.  We will compare this threshold value to the current temperature, and if the temperature is above the threshold, the LED will turn on, and if it is below, it will turn off.  We will also be monitoring the values using the serial monitor so we can tell what is going on.  See if you can write this program on your own, or look at Figure~\ref{fig:temp_led_code}.
+For our code, we will be reading the potentiometer as an analog input and use its position as our threshold value.  We will compare this threshold value to the current temperature, and if the temperature is above the threshold, the LED will turn on, and if it is below, it will turn off.  We will also be monitoring the values using the serial monitor so we can tell what is going on.  \textbf{See if you can write this program on your own, or look at Figure~\ref{fig:temp_led_code}}.
 
 \begin{figure}[htbp]
 	\centering
-\begin{minted}[mathescape,
-				linenos,
-				numbersep=5pt,
-				gobble=0,
-				frame=lines,
-				framesep=2mm]{c}
-
-const int threshold = A0;  // threshold set with 10k pot
-const int temp = A1; // TMP36 Temp sensor
-const int led = 9; //LED Pin
-
-int thresholdValue = 0;        // value used to store threshold value from the pot
-int tempValue = 0;        // value used to store temp read from the temp sensor
-boolean ledState = false; // value used to write the led state
-
-void setup() {
-  digitalWrite(led, ledState);
-  Serial.begin(9600); 
-}
-
-void loop() {
-  // read the pot value and map it to the right scale
-  thresholdValue = map(analogRead(threshold),0,1023,0,255);
-  tempValue = analogRead(temp); // read the temp
-
-  if (tempValue > thresholdValue) {
-    ledState = true; //if temp > threshold, turn on LED
-  }
-  else {
-    ledState = false; //if temp < threshold, turn off LED
-  }
-  digitalWrite(led,ledState); // This writes the state determined above
-
-  // print the results to the serial monitor:
-  Serial.print("thresholdValue = " );                       
-  Serial.print(thresholdValue);      
-  Serial.print("\t tempValue = ");
-  Serial.print(tempValue);
-  Serial.print("\t LED on?: ");
-  Serial.println(ledState);
-
-  delay(2); //Small settle delay for ADC   
-}
-
-\end{minted}
+\inputminted[mathescape,linenos,numbersep=5pt,gobble=0,frame=lines,framesep=2mm]{c}{code/thermostat/thermostat.ino}
 	\caption{Arduino Thermostat Program}
 	\label{fig:temp_led_code}
 \end{figure}
@@ -529,12 +402,11 @@ void loop() {
 \subsubsection{Testing the Thermostat} % (fold)
 \label{ssub:testing_the_thermostat}
 
-Upload your program and open the the serial monitor.  You should see a value from your \texttt{TMP36} as well as your potentiometer and the state of the LED.  Adjust the pot to where the LED turns on, with the threshold below the temperature value.  Also try setting the threshold above the current temperature and confirming the LED turns off.
+Upload your program and open the the serial monitor.  You should see a value from your \texttt{TMP36} as well as your potentiometer and the state of the LED.  \textbf{Adjust the pot to where the LED turns on, with the threshold below the temperature value.  Also try setting the threshold above the current temperature and confirming the LED turns off}.
 
-Now, set the threshold a few integer values above the current temperature value.  Pinch the temperature sensor to increase its temperature and confirm that it turns on.  
+\textbf{Now, set the threshold a few integer values above the current temperature value.  Pinch the temperature sensor with your fingers to increase its temperature and confirm that it turns on}.  
 
-You now have a working temperature sensor controlling hardware.  You can do a lot of things with this now.  You could write a program on your computer to log the incoming data.  You could hook up a fan using an NPM resistor  (since the Arduino cannot provide enough current to motors typically) and turn on a fan if it get to hot in here.  You could also have the Arduino calculate the actual temperature using the \texttt{TMP36} characteristics described in the beginning of Section~\ref{sub:arduino_thermistat}.
-
+You now have a working temperature sensor controlling hardware.  You could write a program on your computer to log the incoming data.  You could hook up a fan using an NPM resistor  (since the Arduino cannot provide enough current to motors typically) and turn on a fan if it gets to hot in here.  You could also have the Arduino calculate the actual temperature using the \texttt{TMP36} characteristics described in the beginning of Section~\ref{sub:arduino_thermistat} and print a more realistic value to the serial monitor.  
 
 % subsubsection testing_the_thermostat (end)  
 
@@ -556,16 +428,41 @@ Go ahead and upload this program to your Arduino and make sure it runs by watchi
 
 Launch a program called \emph{Processing} along side your Arduino IDE.  It looks basically the same as the Arduino editor but is a different color.  Enter the code from the comment in the Arduino \emph{Graph} program into a new Processing sketch, remove the comment wrapper and make sure it compiles.  If you did everything right, when you launch the Processing sketch, it should start plotting the value being read in from the potentiometer value.
 
+You may have to futz around with the serial port selection on the processing sketch.  Now is your chance to troubleshoot!
+
 % subsection sending_data_to_an_external_program (end)
 
 \subsection{Sending commands Arduino Externally} % (fold)
 \label{sub:sending_commands_arduino_externally}
-In this example, we will be exploring two new concepts: the case structure as well as setting up the Arduino to respond to messages sent to it by a computer over the serial port.  Note that these messages could conceivable come from any other device that can talk over a serial line.  
+In this example, we will be exploring two new concepts: the case structure as well as setting up the Arduino to respond to messages sent to it by a computer over the serial port.  Note that these messages could conceivably come from any other device or program that can talk over a serial line.  We will be able to send a command over the serial monitor and turn a specific LED on or off.
 
-\subsection{Load up } % (fold)
-\label{sub:load_up_}
+\subsubsection{Wire up some LEDs} % (fold)
+\label{ssub:wire_up_some_leds}
+Wire up two LEDs to two separate digital pin channels as see in Figure~\ref{fig:figures_serial_switch_schem}.
 
-% subsection load_up_ (end)
+\begin{figure}[htbp]
+    \centering
+        \includegraphics[height=4in]{figures/serial_switch_schem.pdf}
+    \caption{Schematic for Serial switch program}
+    \label{fig:figures_serial_switch_schem}
+\end{figure}
+
+\subsubsection{The Serial Switch code} % (fold)
+\label{ssub:the_serial_switch_code}
+
+Either type or copy in the following program.  The code can be found at [github].
+
+\inputminted[mathescape,linenos,numbersep=5pt,gobble=0,frame=lines,framesep=2mm]{c}{code/serial_switch/serial_switch.ino}
+
+% subsubsection the_serial_switch_code (end)
+
+\subsection{Running the switch} % (fold)
+\label{sub:running_the_switch}
+
+Verify that it compiles and upload the program to your Arduiono.  Open the serial monitor and type in `1' and press send.  \texttt{LED 1} should turn on.  Try sending `2 now'.  Now send `0'.  You Arduino is now responding to input during runtime!
+
+% subsection running_the_switch (end)
+% subsubsection wire_up_some_leds (end)
 % subsection sending_commands_arduino_externally (end)
 % section communicating_with_other_devices (end)
 

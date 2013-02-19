@@ -15,7 +15,7 @@ void setup() {
 void loop() {
   //Check to see if any incoming commands have been recived
   if (Serial.available() > 0) {
-    int inInt = Serial.read(); //Read what command it is
+    int inInt = Serial.parseInt(); //Read what command it is
     switch (inInt) { //Decide what to do with the command
     case 1:    // If we get a 1 over serial
       if (led1State == false) {  //and led1 is off

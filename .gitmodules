@@ -1,0 +1,6 @@
+[submodule "code/libraries/Arduino-PID-Library"]
+	path = code/libraries/Arduino-PID-Library
+	url = git://github.com/br3ttb/Arduino-PID-Library.git
+[submodule "code/libraries/Arduino-PID-AutoTune-Library"]
+	path = code/libraries/Arduino-PID-AutoTune-Library
+	url = git://github.com/br3ttb/Arduino-PID-AutoTune-Library.git

@@ -1,7 +1,7 @@
 315-lab-microcontroller
 =======================
 
-This is a lab write-up I put together for Portland State University's Physics 315 class.  Its based off a prior student, Marshal Colville', work.  It adds more instruction and background.  
+This is a lab write-up I put together for Portland State University's Physics 315 class.  Its based off a prior student, Marshal Colville's, work.  It adds more instruction and background.  
 
 Originally written in LaTeX, the main micro-controller was converted to Word, so now it is missing edits from the version used in class.
 

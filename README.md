@@ -7,6 +7,8 @@ Originally written in LaTeX, the main micro-controller was converted to Word, so
 
 A quick PID .ino program was put together to address some of the usability issues found in Marshal's original write up.
 
-## The .tex files require --shell-escape set, and it also uses pygments for colorization.  This requires a working copy of python and and pygmentize installed. I recommend using `pip` to install pygments.   After that, the LaTeX should just work.
+## Dependencies  
+
+The .tex files require --shell-escape set, and it also uses pygments for colorization.  This requires a working copy of python and and pygmentize installed. I recommend using `pip` to install pygments.   After that, the LaTeX should just work.
 
 The schematics were done using fritzing, although remind me to avoid that program in the future.
